@@ -6,26 +6,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Task;
 
-class Category extends Model
+class board extends Model
 {
     use HasFactory;
 
     /**
-     * 
+     * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $text = [
-        'name',
+    public $fillable = [
+        'title',
+        'description',
     ];
 
-    /**
-     * Renvoi la liste des tâches possédant cette catégorie
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function tasks()
     {
         return $this->hasMany(Task::class);
     }
+
+    public function User()
+    {
+        return $this -> belongsToMany('App\Models\User');
+    }
+
 }

@@ -4,8 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Task;
 
-class Comment extends Model
+class comment extends Model
 {
     use HasFactory;
+
+        /**
+     * 
+     *
+     * @var array
+     */
+    public $text = [
+        'text',
+
+    ];
+
+    protected $hidden = [
+        'user_id',
+        'task_id',
+    ];
+
+    public function User()
+    {
+        return $this -> belongsTo('App\Models\User');
+    }
+
+    public function Task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+
 }

@@ -5,27 +5,38 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-    class Task extends Model
-    {
-        use HasFactory;
-    }
+class Task extends Model
+{
+    use HasFactory;
 
-    public function user()
-    {
-        return $this -> belongsTo('App\Models\User', 'foreign_key');
-    }
+    public  $text = [
+        'title',
+        'Description',
+        'state',
+    ];
+
+    protected $hidden = [
+        'user_id',
+        'task_id',
+    ];
 
     public function comments()
     {
-        return $this -> hasMany('App\Models\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     public function attachments()
     {
-        return $this -> hasMany('App\Models\Attachment');
+        return $this->hasMany(Attachment::class);
     }
 
-    public function categories()
+    public function board()
     {
-        return $this -> hasOne('App\Models\Category');
+        return $this -> belongsTo('App\Models\Board');
     }
+
+    public function category()
+    {
+        return $this -> belongsTo('App\Models\Category');
+    }
+}

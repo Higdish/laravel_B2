@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\board;
 
 class User extends Authenticatable
 {
@@ -18,7 +19,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'username',
         'email',
         'password',
     ];
@@ -33,8 +33,27 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function task()
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function comments()
     {
-        return $this->hasOne('App\Models\Task');
+        return $this->hasMany(Comment::class);
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
+
+    public function boards()
+    {
+        return $this->hasMany(Board::class);
     }
 }
